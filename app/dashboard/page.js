@@ -13,14 +13,6 @@ export default function Dasboard() {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ['voters'],
     queryFn: async () => {
-      // return await axios.post('http://localhost/next/assets/action.php', {
-      //   action: 'fetchVoters'
-      // },
-      // {
-      //   headers: {
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   }
-      // })
       const res = await fetch(`http://localhost/next/assets/action.php?action=fetchVoters`)
       return await res.json()
     },
