@@ -31,8 +31,16 @@ export default function SignIn() {
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <input type="text" onChange={e => setUser(e.target.value)} required />
-      <input type="password" onChange={e => setPass(e.target.value)} required />
+      <div>
+        <label htmlFor="username">Enter Username:</label>
+        <input type="text" id="username" onChange={e => setUser(e.target.value)} required />
+      </div>
+
+      <div>
+        <label htmlFor="password">Enter Username:</label>
+        <input type="password" id="password" onChange={e => setPass(e.target.value)} required />
+      </div>
+      
       <input type="submit" value='Sign in' />
     </form>
   )
