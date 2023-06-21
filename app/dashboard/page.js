@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import { useEffect, useState, use, cache } from "react"
 import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
 import Link from "next/link"
 
 export default function Dasboard() {
@@ -14,14 +13,16 @@ export default function Dasboard() {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ['voters'],
     queryFn: async () => {
-      return await axios.post('http://localhost/next/assets/action.php', {
-        action: 'fetchVoters'
-      },
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
+      // return await axios.post('http://localhost/next/assets/action.php', {
+      //   action: 'fetchVoters'
+      // },
+      // {
+      //   headers: {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   }
+      // })
+      const res = await fetch(`http://localhost/next/assets/action.php?action=fetchVoters`)
+      return await res.json()
     },
     refetchOnMount: false,
     refetchInterval: 100000
@@ -39,7 +40,7 @@ export default function Dasboard() {
       e.preventDefault()
       signOut()
     }}>Logout</button>
-    {data?.data?.map((voter, i) => (
+    {data?.map((voter, i) => (
       <p key={`voter${i}`}>
         {voter.fname} {voter.lname}
         <Link href={`/user/${voter.studentid}`}>View</Link>
